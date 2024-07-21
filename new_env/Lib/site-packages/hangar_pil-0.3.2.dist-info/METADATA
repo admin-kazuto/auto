@@ -1,0 +1,41 @@
+Metadata-Version: 2.1
+Name: hangar-pil
+Version: 0.3.2
+Summary: PIL plugin for hangar
+Home-page: https://github.com/hhsecond/hangar_pil
+Author: hhsecond
+Author-email: sherin@tensorwerk.com
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: Pillow
+
+# hangar_pil
+Hangar PIL plugin
+
+hangar_pil provides `load`, `save` and `board_show` methods and supports jpg, jpeg, png, ppm, bmp, pgm, tif, tiff and webp files
+
+## installation
+```bash
+pip install hangar_pil
+```
+
+## Usage - CLI
+Examples here are with minimal options possible, checkout the hangar documentation for all available options
+
+- Importing a directory full of images into hangar. Hangar uses hangar_pil to figure out which file formats are supported by hangar_pil and auto infer plugin at runtime. Note that `--height` and `--width` are plugin specific arguments
+```bash
+ hangar import aset images_directory --height 299 --width 299
+ ```
+
+- Exporting: This exports the sample to the current directory
+```bash
+hangar export aset --format jpg --sample sample_name
+```
+
+## Usage - programmatically
+

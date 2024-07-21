@@ -1,0 +1,272 @@
+[
+    {
+        "label": "asyncio",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "asyncio",
+        "description": "asyncio",
+        "detail": "asyncio",
+        "documentation": {}
+    },
+    {
+        "label": "websockets",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "websockets",
+        "description": "websockets",
+        "detail": "websockets",
+        "documentation": {}
+    },
+    {
+        "label": "Image",
+        "importPath": "PIL",
+        "description": "PIL",
+        "isExtraImport": true,
+        "detail": "PIL",
+        "documentation": {}
+    },
+    {
+        "label": "Image",
+        "importPath": "PIL",
+        "description": "PIL",
+        "isExtraImport": true,
+        "detail": "PIL",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "cv2",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "cv2",
+        "description": "cv2",
+        "detail": "cv2",
+        "documentation": {}
+    },
+    {
+        "label": "numpy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "numpy",
+        "description": "numpy",
+        "detail": "numpy",
+        "documentation": {}
+    },
+    {
+        "label": "base64",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "base64",
+        "description": "base64",
+        "detail": "base64",
+        "documentation": {}
+    },
+    {
+        "label": "BytesIO",
+        "importPath": "io",
+        "description": "io",
+        "isExtraImport": true,
+        "detail": "io",
+        "documentation": {}
+    },
+    {
+        "label": "BytesIO",
+        "importPath": "io",
+        "description": "io",
+        "isExtraImport": true,
+        "detail": "io",
+        "documentation": {}
+    },
+    {
+        "label": "calculate_control_signal",
+        "importPath": "lane_line_detection",
+        "description": "lane_line_detection",
+        "isExtraImport": true,
+        "detail": "lane_line_detection",
+        "documentation": {}
+    },
+    {
+        "label": "*",
+        "importPath": "lane_line_detection",
+        "description": "lane_line_detection",
+        "isExtraImport": true,
+        "detail": "lane_line_detection",
+        "documentation": {}
+    },
+    {
+        "label": "time",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "time",
+        "description": "time",
+        "detail": "time",
+        "documentation": {}
+    },
+    {
+        "label": "Process",
+        "importPath": "multiprocessing",
+        "description": "multiprocessing",
+        "isExtraImport": true,
+        "detail": "multiprocessing",
+        "documentation": {}
+    },
+    {
+        "label": "Queue",
+        "importPath": "multiprocessing",
+        "description": "multiprocessing",
+        "isExtraImport": true,
+        "detail": "multiprocessing",
+        "documentation": {}
+    },
+    {
+        "label": "*",
+        "importPath": "traffic_sign_detection",
+        "description": "traffic_sign_detection",
+        "isExtraImport": true,
+        "detail": "traffic_sign_detection",
+        "documentation": {}
+    },
+    {
+        "label": "find_lane_lines",
+        "kind": 2,
+        "importPath": "p1_lane_line_detection.lane_line_detection",
+        "description": "p1_lane_line_detection.lane_line_detection",
+        "peekOfCode": "def find_lane_lines(img):\n    \"\"\"\n    Detecting road markings\n    This function will take a color image, in BGR color system,\n    Returns a filtered image of road markings\n    \"\"\"\n    # Convert to gray scale\n    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)\n    # Apply a Gaussian filter to remove noise\n    # You can experiment with other filters here.",
+        "detail": "p1_lane_line_detection.lane_line_detection",
+        "documentation": {}
+    },
+    {
+        "label": "birdview_transform",
+        "kind": 2,
+        "importPath": "p1_lane_line_detection.lane_line_detection",
+        "description": "p1_lane_line_detection.lane_line_detection",
+        "peekOfCode": "def birdview_transform(img):\n    \"\"\"Apply bird-view transform to the image\n    \"\"\"\n    IMAGE_H = 480\n    IMAGE_W = 640\n    src = np.float32([[0, IMAGE_H], [IMAGE_W, IMAGE_H], [0, IMAGE_H // 3], [IMAGE_W, IMAGE_H // 3]])\n    dst = np.float32([[120, IMAGE_H], [IMAGE_W - 120, IMAGE_H], [0, 0], [IMAGE_W, 0]])\n    M = cv2.getPerspectiveTransform(src, dst) # The transformation matrix\n    warped_img = cv2.warpPerspective(img, M, (IMAGE_W, IMAGE_H)) # Image warping\n    return warped_img",
+        "detail": "p1_lane_line_detection.lane_line_detection",
+        "documentation": {}
+    },
+    {
+        "label": "find_left_right_points",
+        "kind": 2,
+        "importPath": "p1_lane_line_detection.lane_line_detection",
+        "description": "p1_lane_line_detection.lane_line_detection",
+        "peekOfCode": "def find_left_right_points(image, draw=None, secondary_line_y=0.4):\n    \"\"\"Find left and right points of lane\n    \"\"\"\n    im_height, im_width = image.shape[:2]\n    # Primary line at 99.9% from the top of the image\n    interested_line_y = int(im_height * 0.995)\n    if draw is not None:\n        cv2.line(draw, (0, interested_line_y),\n                 (im_width, interested_line_y), (0, 0, 255), 2)\n    # Secondary line at a given percentage from the top of the image",
+        "detail": "p1_lane_line_detection.lane_line_detection",
+        "documentation": {}
+    },
+    {
+        "label": "detect_points",
+        "kind": 2,
+        "importPath": "p1_lane_line_detection.lane_line_detection",
+        "description": "p1_lane_line_detection.lane_line_detection",
+        "peekOfCode": "def detect_points(line, center):\n    \"\"\"Detect left and right points in a given line of the image\"\"\"\n    left_point = -1\n    right_point = -1\n    lane_width = 500\n    for x in range(center, 0, -1):\n        if line[x] > 0:\n            left_point = x\n            break\n    for x in range(center + 1, len(line)):",
+        "detail": "p1_lane_line_detection.lane_line_detection",
+        "documentation": {}
+    },
+    {
+        "label": "calculate_control_signal",
+        "kind": 2,
+        "importPath": "p1_lane_line_detection.lane_line_detection",
+        "description": "p1_lane_line_detection.lane_line_detection",
+        "peekOfCode": "def calculate_control_signal(img, draw=None):\n    \"\"\"Calculate speed and steering angle\"\"\"\n    # Find left/right points\n    img_lines = find_lane_lines(img)\n    img_birdview = birdview_transform(img_lines)\n    draw[:, :] = birdview_transform(draw)\n    (left_point_primary, right_point_primary), (left_point_secondary, right_point_secondary) = find_left_right_points(\n        img_birdview, draw=draw)\n    # Calculate speed and steering angle\n    throttle = 0.9",
+        "detail": "p1_lane_line_detection.lane_line_detection",
+        "documentation": {}
+    },
+    {
+        "label": "process_traffic_sign_loop",
+        "kind": 2,
+        "importPath": "p2_traffic.drive",
+        "description": "p2_traffic.drive",
+        "peekOfCode": "def process_traffic_sign_loop(g_image_queue):\n    while True:\n        if g_image_queue.empty():\n            time.sleep(0.1)\n            continue\n        image = g_image_queue.get()\n        # Prepare visualization image\n        draw = image.copy()\n        # Detect traffic signs\n        detect_traffic_signs(image, traffic_sign_model, draw=draw)",
+        "detail": "p2_traffic.drive",
+        "documentation": {}
+    },
+    {
+        "label": "traffic_sign_model",
+        "kind": 5,
+        "importPath": "p2_traffic.drive",
+        "description": "p2_traffic.drive",
+        "peekOfCode": "traffic_sign_model = cv2.dnn.readNetFromONNX(\n    \"traffic_sign_classifier_lenet_v3.onnx\")\n# Global queue to save current image\n# We need to run the sign classification model in a separate process\n# Use this queue as an intermediate place to exchange images\ng_image_queue = Queue(maxsize=5)\n# Function to run sign classification model continuously\n# We will start a new process for this\ndef process_traffic_sign_loop(g_image_queue):\n    while True:",
+        "detail": "p2_traffic.drive",
+        "documentation": {}
+    },
+    {
+        "label": "g_image_queue",
+        "kind": 5,
+        "importPath": "p2_traffic.drive",
+        "description": "p2_traffic.drive",
+        "peekOfCode": "g_image_queue = Queue(maxsize=5)\n# Function to run sign classification model continuously\n# We will start a new process for this\ndef process_traffic_sign_loop(g_image_queue):\n    while True:\n        if g_image_queue.empty():\n            time.sleep(0.1)\n            continue\n        image = g_image_queue.get()\n        # Prepare visualization image",
+        "detail": "p2_traffic.drive",
+        "documentation": {}
+    },
+    {
+        "label": "find_lane_lines",
+        "kind": 2,
+        "importPath": "p2_traffic.lane_line_detection",
+        "description": "p2_traffic.lane_line_detection",
+        "peekOfCode": "def find_lane_lines(img):\n    \"\"\"\n    Detecting road markings\n    This function will take a color image, in BGR color system,\n    Returns a filtered image of road markings\n    \"\"\"\n    # Convert to gray scale\n    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)\n    # Apply a Gaussian filter to remove noise\n    # You can experiment with other filters here.",
+        "detail": "p2_traffic.lane_line_detection",
+        "documentation": {}
+    },
+    {
+        "label": "birdview_transform",
+        "kind": 2,
+        "importPath": "p2_traffic.lane_line_detection",
+        "description": "p2_traffic.lane_line_detection",
+        "peekOfCode": "def birdview_transform(img):\n    \"\"\"Apply bird-view transform to the image\n    \"\"\"\n    IMAGE_H = 480\n    IMAGE_W = 640\n    src = np.float32([[0, IMAGE_H], [640, IMAGE_H], [0, IMAGE_H * 0.4], [IMAGE_W, IMAGE_H * 0.4]])\n    dst = np.float32([[240, IMAGE_H], [640 - 240, IMAGE_H], [-160, 0], [IMAGE_W+160, 0]])\n    M = cv2.getPerspectiveTransform(src, dst) # The transformation matrix\n    warped_img = cv2.warpPerspective(img, M, (IMAGE_W, IMAGE_H)) # Image warping\n    return warped_img",
+        "detail": "p2_traffic.lane_line_detection",
+        "documentation": {}
+    },
+    {
+        "label": "find_left_right_points",
+        "kind": 2,
+        "importPath": "p2_traffic.lane_line_detection",
+        "description": "p2_traffic.lane_line_detection",
+        "peekOfCode": "def find_left_right_points(image, draw=None):\n    \"\"\"Find left and right points of lane\n    \"\"\"\n    im_height, im_width = image.shape[:2]\n    # Consider the position 70% from the top of the image\n    interested_line_y = int(im_height * 0.9)\n    if draw is not None:\n        cv2.line(draw, (0, interested_line_y),\n                 (im_width, interested_line_y), (0, 0, 255), 2)\n    interested_line = image[interested_line_y, :]",
+        "detail": "p2_traffic.lane_line_detection",
+        "documentation": {}
+    },
+    {
+        "label": "calculate_control_signal",
+        "kind": 2,
+        "importPath": "p2_traffic.lane_line_detection",
+        "description": "p2_traffic.lane_line_detection",
+        "peekOfCode": "def calculate_control_signal(img, draw=None):\n    \"\"\"Calculate speed and steering angle\n    \"\"\"\n    # Find left/right points\n    img_lines = find_lane_lines(img)\n    img_birdview = birdview_transform(img_lines)\n    draw[:, :] = birdview_transform(draw)\n    left_point, right_point = find_left_right_points(img_birdview, draw=draw)\n    # Calculate speed and steering angle\n    # The speed is fixed to 50% of the max speed",
+        "detail": "p2_traffic.lane_line_detection",
+        "documentation": {}
+    },
+    {
+        "label": "filter_signs_by_color",
+        "kind": 2,
+        "importPath": "p2_traffic.traffic_sign_detection",
+        "description": "p2_traffic.traffic_sign_detection",
+        "peekOfCode": "def filter_signs_by_color(image):\n    \"\"\"Filter all objects with red or blue color - traffic sign candidate\n    \"\"\"\n    # Convert image to HSV color space\n    image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)\n    # Filter red. There are two range of red color\n    lower1, upper1 = np.array([0, 70, 50]), np.array([10, 255, 255])\n    lower2, upper2 = np.array([170, 70, 50]), np.array([180, 255, 255])\n    mask_1 = cv2.inRange(image, lower1, upper1)\n    mask_2 = cv2.inRange(image, lower2, upper2)",
+        "detail": "p2_traffic.traffic_sign_detection",
+        "documentation": {}
+    },
+    {
+        "label": "get_boxes_from_mask",
+        "kind": 2,
+        "importPath": "p2_traffic.traffic_sign_detection",
+        "description": "p2_traffic.traffic_sign_detection",
+        "peekOfCode": "def get_boxes_from_mask(mask):\n    \"\"\"Find bounding boxes from color\n    \"\"\"\n    bboxes = []\n    nccomps = cv2.connectedComponentsWithStats(mask, 4, cv2.CV_32S)\n    numLabels, labels, stats, centroids = nccomps\n    im_height, im_width = mask.shape[:2]\n    for i in range(numLabels):\n        x = stats[i, cv2.CC_STAT_LEFT]\n        y = stats[i, cv2.CC_STAT_TOP]",
+        "detail": "p2_traffic.traffic_sign_detection",
+        "documentation": {}
+    },
+    {
+        "label": "detect_traffic_signs",
+        "kind": 2,
+        "importPath": "p2_traffic.traffic_sign_detection",
+        "description": "p2_traffic.traffic_sign_detection",
+        "peekOfCode": "def detect_traffic_signs(img, model, draw=None):\n    \"\"\"Detect traffic signs on and image\n    \"\"\"\n    # Traffic sign classes. unknown means \"not a traffic sign\"\n    classes = ['unknown', 'left', 'no_left', 'right',\n               'no_right', 'straight', 'stop']\n    # Detect traffic signs by color\n    mask = filter_signs_by_color(img)\n    bboxes = get_boxes_from_mask(mask)\n    # Preprocess",
+        "detail": "p2_traffic.traffic_sign_detection",
+        "documentation": {}
+    }
+]

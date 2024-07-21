@@ -1,0 +1,3 @@
+[hangar.external.plugins]
+pil = hangar_pil:HangarPIL
+

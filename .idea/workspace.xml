@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="417e2f19-0f8a-4230-ac7a-63a5d6daa60c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/p1_lane_line_detection/drive.py" beforeDir="false" afterPath="$PROJECT_DIR$/p1_lane_line_detection/drive.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/p1_lane_line_detection/lane_line_detection.py" beforeDir="false" afterPath="$PROJECT_DIR$/p1_lane_line_detection/lane_line_detection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/p2_traffic_sign_detection/drive.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/p2_traffic_sign_detection/lane_line_detection.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/p2_traffic_sign_detection/requirements.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/p2_traffic_sign_detection/traffic_sign_classifier_lenet_v3.onnx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/p2_traffic_sign_detection/traffic_sign_detection.py" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 2
+}]]></component>
+  <component name="ProjectId" id="2jTFa3VrE8iM8IDiZnzMsidE9pp" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-975db3bf15a3-31b6be0877a2-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-241.18034.82" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="417e2f19-0f8a-4230-ac7a-63a5d6daa60c" name="Changes" comment="" />
+      <created>1721403221706</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1721403221706</updated>
+    </task>
+    <servers />
+  </component>
+</project>
