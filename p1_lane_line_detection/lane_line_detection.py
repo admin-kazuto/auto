@@ -17,8 +17,8 @@ def find_lane_lines(img):
     img_gauss = cv2.GaussianBlur(gray, (11, 11), 0)
 
     # Apply Canny edge detection
-    thresh_low = 150
-    thresh_high = 200
+    thresh_low = 100
+    thresh_high = 150
     img_canny = cv2.Canny(img_gauss, thresh_low, thresh_high)
 
     # Return image
@@ -44,7 +44,7 @@ def find_left_right_points(image, draw=None, secondary_line_y=0.4):
     im_height, im_width = image.shape[:2]
 
     # Primary line at 99.9% from the top of the image
-    interested_line_y = int(im_height * 0.995)
+    interested_line_y = int(im_height * 0.85)
     if draw is not None:
         cv2.line(draw, (0, interested_line_y),
                  (im_width, interested_line_y), (0, 0, 255), 2)
@@ -80,7 +80,7 @@ def detect_points(line, center):
     """Detect left and right points in a given line of the image"""
     left_point = -1
     right_point = -1
-    lane_width = 500
+    lane_width = 2000
 
     for x in range(center, 0, -1):
         if line[x] > 0:
@@ -111,20 +111,20 @@ def calculate_control_signal(img, draw=None):
         img_birdview, draw=draw)
 
     # Calculate speed and steering angle
-    throttle = 0.9
+    throttle = 0.7
     steering_angle = 0
     im_center = img.shape[1] // 2
 
     if left_point_primary != -1 and right_point_primary != -1:
         center_point = (right_point_primary + left_point_primary) // 2
         center_diff = im_center - center_point
-        steering_angle = - float(center_diff * 0.01205)
+        steering_angle = - float(center_diff * 0.15)
         abs_steering_angle = abs(steering_angle)
 
         # Check if there's a turn based on secondary line
         if left_point_secondary == -1 or right_point_secondary == -1:
             throttle = 0.3
         elif abs_steering_angle > 0.15:
-            throttle = max(0.2, 0.6 - abs_steering_angle * 0.3)
+            throttle = 0.3
 
     return throttle, steering_angle

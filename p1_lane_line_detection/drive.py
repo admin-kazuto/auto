@@ -6,35 +6,59 @@ import cv2
 import numpy as np
 import base64
 from io import BytesIO
+import os
 from lane_line_detection import calculate_control_signal
 
+# Hàm lưu khung hình và ghi tên vào file
+def save_frame(frame, output_folder, txt_file, frame_count):
+    # Đảm bảo thư mục đầu ra tồn tại
+    if not os.path.exists(output_folder):
+        os.makedirs(output_folder)
+    
+    # Tạo đường dẫn cho khung hình
+    frame_name = f"frame_{frame_count:04d}.jpg"
+    frame_path = os.path.join(output_folder, frame_name)
+    
+    # Lưu khung hình
+    cv2.imwrite(frame_path, frame)
+    
+    # Ghi tên khung hình vào file txt
+    txt_file.write(frame_name + '\n')
+
 async def echo(websocket, path):
-    async for message in websocket:
-        # Get image from simulation
-        data = json.loads(message)
-        image = Image.open(BytesIO(base64.b64decode(data["image"])))
-        image = np.asarray(image)
-        image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
+    # Mở file để ghi tên các khung hình
+    with open("test.txt", 'w') as txt_file:
+        frame_count = 0
+        async for message in websocket:
+            # Nhận hình ảnh từ mô phỏng
+            data = json.loads(message)
+            image = Image.open(BytesIO(base64.b64decode(data["image"])))
+            image = np.asarray(image)
+            image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 
-        # Prepare visualization image
-        draw = image.copy()
+            # Chuẩn bị hình ảnh để hiển thị
+            draw = image.copy()
 
-        # Send back throttle and steering angle
-        throttle, steering_angle = calculate_control_signal(image, draw=draw)
+            # Gửi lại giá trị throttle và góc lái
+            throttle, steering_angle = calculate_control_signal(image, draw=draw)
 
-        # Show the result to a window
-        cv2.imshow("Result", draw)
-        cv2.waitKey(1)
+            # Hiển thị kết quả trong một cửa sổ
+            cv2.imshow("Result", draw)
+            cv2.waitKey(1)
 
-        # Send back throttle and steering angle
-        message = json.dumps({"throttle": throttle, "steering": steering_angle})
-        print(message)
-        await websocket.send(message)
-        
+            # Lưu khung hình hiện tại
+            save_frame(draw, "frames_output", txt_file, frame_count)
+            frame_count += 1
+
+            # Gửi lại giá trị throttle và góc lái
+            message = json.dumps({"throttle": throttle, "steering": steering_angle})
+            print(message)
+            await websocket.send(message)
 
 async def main():
-    print("a")
+    print("Bắt đầu server...")
     async with websockets.serve(echo, "0.0.0.0", 4567, ping_interval=None):
-        print("b")
-        await asyncio.Future()  # run forever
+        await asyncio.Future()  # chạy mãi mãi
+
+# Bắt đầu server
 asyncio.run(main())

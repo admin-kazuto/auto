@@ -86,6 +86,15 @@
         "documentation": {}
     },
     {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
         "label": "calculate_control_signal",
         "importPath": "lane_line_detection",
         "description": "lane_line_detection",
@@ -135,6 +144,15 @@
         "documentation": {}
     },
     {
+        "label": "save_frame",
+        "kind": 2,
+        "importPath": "p1_lane_line_detection.drive",
+        "description": "p1_lane_line_detection.drive",
+        "peekOfCode": "def save_frame(frame, output_folder, txt_file, frame_count):\n    # Đảm bảo thư mục đầu ra tồn tại\n    if not os.path.exists(output_folder):\n        os.makedirs(output_folder)\n    # Tạo đường dẫn cho khung hình\n    frame_name = f\"frame_{frame_count:04d}.jpg\"\n    frame_path = os.path.join(output_folder, frame_name)\n    # Lưu khung hình\n    cv2.imwrite(frame_path, frame)\n    # Ghi tên khung hình vào file txt",
+        "detail": "p1_lane_line_detection.drive",
+        "documentation": {}
+    },
+    {
         "label": "find_lane_lines",
         "kind": 2,
         "importPath": "p1_lane_line_detection.lane_line_detection",
@@ -157,7 +175,7 @@
         "kind": 2,
         "importPath": "p1_lane_line_detection.lane_line_detection",
         "description": "p1_lane_line_detection.lane_line_detection",
-        "peekOfCode": "def find_left_right_points(image, draw=None, secondary_line_y=0.4):\n    \"\"\"Find left and right points of lane\n    \"\"\"\n    im_height, im_width = image.shape[:2]\n    # Primary line at 99.9% from the top of the image\n    interested_line_y = int(im_height * 0.995)\n    if draw is not None:\n        cv2.line(draw, (0, interested_line_y),\n                 (im_width, interested_line_y), (0, 0, 255), 2)\n    # Secondary line at a given percentage from the top of the image",
+        "peekOfCode": "def find_left_right_points(image, draw=None, secondary_line_y=0.4):\n    \"\"\"Find left and right points of lane\n    \"\"\"\n    im_height, im_width = image.shape[:2]\n    # Primary line at 99.9% from the top of the image\n    interested_line_y = int(im_height * 0.85)\n    if draw is not None:\n        cv2.line(draw, (0, interested_line_y),\n                 (im_width, interested_line_y), (0, 0, 255), 2)\n    # Secondary line at a given percentage from the top of the image",
         "detail": "p1_lane_line_detection.lane_line_detection",
         "documentation": {}
     },
@@ -166,7 +184,7 @@
         "kind": 2,
         "importPath": "p1_lane_line_detection.lane_line_detection",
         "description": "p1_lane_line_detection.lane_line_detection",
-        "peekOfCode": "def detect_points(line, center):\n    \"\"\"Detect left and right points in a given line of the image\"\"\"\n    left_point = -1\n    right_point = -1\n    lane_width = 500\n    for x in range(center, 0, -1):\n        if line[x] > 0:\n            left_point = x\n            break\n    for x in range(center + 1, len(line)):",
+        "peekOfCode": "def detect_points(line, center):\n    \"\"\"Detect left and right points in a given line of the image\"\"\"\n    left_point = -1\n    right_point = -1\n    lane_width = 2000\n    for x in range(center, 0, -1):\n        if line[x] > 0:\n            left_point = x\n            break\n    for x in range(center + 1, len(line)):",
         "detail": "p1_lane_line_detection.lane_line_detection",
         "documentation": {}
     },
@@ -175,8 +193,44 @@
         "kind": 2,
         "importPath": "p1_lane_line_detection.lane_line_detection",
         "description": "p1_lane_line_detection.lane_line_detection",
-        "peekOfCode": "def calculate_control_signal(img, draw=None):\n    \"\"\"Calculate speed and steering angle\"\"\"\n    # Find left/right points\n    img_lines = find_lane_lines(img)\n    img_birdview = birdview_transform(img_lines)\n    draw[:, :] = birdview_transform(draw)\n    (left_point_primary, right_point_primary), (left_point_secondary, right_point_secondary) = find_left_right_points(\n        img_birdview, draw=draw)\n    # Calculate speed and steering angle\n    throttle = 0.9",
+        "peekOfCode": "def calculate_control_signal(img, draw=None):\n    \"\"\"Calculate speed and steering angle\"\"\"\n    # Find left/right points\n    img_lines = find_lane_lines(img)\n    img_birdview = birdview_transform(img_lines)\n    draw[:, :] = birdview_transform(draw)\n    (left_point_primary, right_point_primary), (left_point_secondary, right_point_secondary) = find_left_right_points(\n        img_birdview, draw=draw)\n    # Calculate speed and steering angle\n    throttle = 0.7",
         "detail": "p1_lane_line_detection.lane_line_detection",
+        "documentation": {}
+    },
+    {
+        "label": "extract_frames",
+        "kind": 2,
+        "importPath": "p1_lane_line_detection.test",
+        "description": "p1_lane_line_detection.test",
+        "peekOfCode": "def extract_frames(video_path, output_folder, txt_file_path):\n    # Mở video\n    cap = cv2.VideoCapture(video_path)\n    # Kiểm tra xem video có mở được không\n    if not cap.isOpened():\n        print(\"Không thể mở video.\")\n        return\n    # Đảm bảo thư mục đầu ra tồn tại\n    if not os.path.exists(output_folder):\n        os.makedirs(output_folder)",
+        "detail": "p1_lane_line_detection.test",
+        "documentation": {}
+    },
+    {
+        "label": "video_path",
+        "kind": 5,
+        "importPath": "p1_lane_line_detection.test",
+        "description": "p1_lane_line_detection.test",
+        "peekOfCode": "video_path = \"5741328582801.mp4\"\noutput_folder = \"frames_output\"\ntxt_file_path = \"test.txt\"\n# Gọi hàm extract_frames\nextract_frames(video_path, output_folder, txt_file_path)",
+        "detail": "p1_lane_line_detection.test",
+        "documentation": {}
+    },
+    {
+        "label": "output_folder",
+        "kind": 5,
+        "importPath": "p1_lane_line_detection.test",
+        "description": "p1_lane_line_detection.test",
+        "peekOfCode": "output_folder = \"frames_output\"\ntxt_file_path = \"test.txt\"\n# Gọi hàm extract_frames\nextract_frames(video_path, output_folder, txt_file_path)",
+        "detail": "p1_lane_line_detection.test",
+        "documentation": {}
+    },
+    {
+        "label": "txt_file_path",
+        "kind": 5,
+        "importPath": "p1_lane_line_detection.test",
+        "description": "p1_lane_line_detection.test",
+        "peekOfCode": "txt_file_path = \"test.txt\"\n# Gọi hàm extract_frames\nextract_frames(video_path, output_folder, txt_file_path)",
+        "detail": "p1_lane_line_detection.test",
         "documentation": {}
     },
     {
